@@ -13,13 +13,14 @@ void student_destroy(void* s);
 
 //getters and setters
 
-//create a new student struct. return 1 if failed.
-int student_init(char* name_input, int id);
+//create a new student struct. return pointer to the student
+//struct
+student* student_init(char* name_input, int id);
+
+int insert_course_to_list(student* s, char* c_name, int c_grade);
 
 
-
-
-//======= NEED TO CONTINUE=======
-//print
+//returns 1 when failed
+void print_student(student* s);
 
 #endif

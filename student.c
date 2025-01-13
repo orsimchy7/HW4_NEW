@@ -13,7 +13,8 @@ typedef struct student {
 	int ID;
 	char* name;
 	struct list* courses_list; //course_list is a pointer to list
-	struct iterator* iterator; //check if needed here
+	//there is no iterator field because we can't struct it
+	//on an empty list
 }
 
 
@@ -43,7 +44,6 @@ int student_clone(void* student_in, void** student_out){
 	//the clone will have the same course_list pointer 
 	clone->courses_list = original->courses_list
 
-	clone->iterator = original->iterator;
 
 	return 0;
 
@@ -58,8 +58,7 @@ void student_destroy(void* s){
 	free(student_in->name);
 
 	//delete the list of courses with linked-list destroy func
-
-	free(student_in->courses_list);
+	list_destroy(student_in->courses_list);
 
 	free(student_in); //check if needed
 }
@@ -67,9 +66,31 @@ void student_destroy(void* s){
 
 //setters & getters
 
-int student_init(char* name_input, int id){
+student* student_init(char* name_input, int id){
 
+	student* new_student = (student*)malloc(sizeof(student));
 
+	if(!new_student){
+		return;
+	}
+
+	new_student->ID = id;
+
+	new_student->name = (char*)malloc(sizeof(name_input)+1);
+
+	if(!new_student->name){
+		free(new_student);
+		return;
+	}
+
+	strcpy(new_student->name, name_input);
+
+	//list_init gets pointer to clone and destroy elements funcs.
+	new_student->courses_list = list_init(course_clone , course_destroy);
+
+	if(new_student->courses_list == NULL){
+		return;
+	}
 
 }
 
@@ -78,17 +99,6 @@ int student_init(char* name_input, int id){
 
 
 //insert course to student courses list
-
-/**
- * @brief Pushes a new node at the end of the list
- * @param list A pointer to list
- * @param element A pointer to the element.
- * @returns 0 on success
- * @note "list" holds a copy of "element" (clone)
- */
-//int list_push_back(struct list *list, void *element);
-
-//
 int insert_course_to_list(student* s, char* c_name, int c_grade){
 
 	//we create a course
@@ -108,6 +118,25 @@ int insert_course_to_list(student* s, char* c_name, int c_grade){
 }
 
 
+// * STUDENT-NAME STUDENT-ID: COURSE-1-NAME COURSE-1-GRADE, [...]
 
-//create a new course struct. return 1 if failed.
-int course_init(char* name, int grade_in);
+void print_student(student* s){
+
+	student* student_input = (student*)s;
+	printf("%s %d ", student_in->name, student_in->ID);
+
+	struct it* = list_begin(student_in->courses_list);
+
+	while(it==!NULL){
+		//there are courses in list to print
+		course* c = (course*)list_get(it);
+
+		print_course_data(c);
+
+		it = list_next(it);
+	}
+
+
+}
+
+
