@@ -16,8 +16,17 @@ typedef struct grades {
   //2. destroy
 
 struct grades* grades_init(){
-	grades->students_list = list_init(student_clone , student_destroy);
+
+	struct grades g;
+
+	g->students_list = list_init(student_clone , student_destroy);
 	//check if this is the right way to transfer pointers to funcs
+
+	if(g->students_list == NULL){
+		return NULL;
+	}
+
+	return g;
 }
 
 
