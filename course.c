@@ -93,7 +93,7 @@ int print_course_data(course* c){
 	if(!c){
 		return; //course not exist. return what?
 	}
-	printf("%s %d", course->course_name, course->grade);
+	printf(" %s %d", course->course_name, course->grade);
 	return 0; //success
 }
 
