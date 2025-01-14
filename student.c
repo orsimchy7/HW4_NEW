@@ -148,7 +148,7 @@ int insert_course_to_list(student* s, char* c_name, int c_grade){
 void print_student(student* s){
 
 	student* student_input = (student*)s;
-	printf("%s %d ", student_in->name, student_in->ID);
+	printf("%s %d:", student_in->name, student_in->ID);
 
 	struct it* = list_begin(student_in->courses_list);
 
