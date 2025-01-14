@@ -12,10 +12,6 @@ typedef struct grades {
   struct list* students_list,
 }
 
-//to implement:
-  //1. init
-  //2. destroy
-
 struct grades* grades_init(){
 
 	struct grades g;
@@ -30,8 +26,10 @@ struct grades* grades_init(){
 	return g;
 }
 
-
-
+void grades_destroy(struct grades *grades) {
+  	if (!grades) return;
+  	grades_destroy(struct grades *grades);
+}
 
 int grades_add_student(grades* grades, const char *name, int id) {
   if (!grades){
@@ -105,7 +103,10 @@ int grades_add_grade(struct grades *grades,
 
 //returns -1 on error (and when fails? check)
 float grades_calc_avg(struct grades *grades, int id, char **out); {
-	if (!grades) return -1;
+	if (!grades) {
+		*out = NULL;
+		return -1;
+	}
 	float avg = 0;
 	int found = 0;
 	struct itSTUDENT* = list_begin(grades->students_list);
@@ -123,7 +124,7 @@ float grades_calc_avg(struct grades *grades, int id, char **out); {
 		//setting string out by derefrence & allocating memory
 		*out = (char*)malloc((strlen(student->name)+1) * sizeof(char));
 		if (!(*out)) {
-			return -1; //error
+			return -1; //error. *out = NULL
 		}
 		strcopy(*out, student->name);
 		
@@ -140,6 +141,7 @@ float grades_calc_avg(struct grades *grades, int id, char **out); {
 		return avg;
 	}
 	else { //no student with desired id
+		*out = NULL;
 		return -1;
 	}
 }
