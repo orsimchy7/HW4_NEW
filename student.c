@@ -101,6 +101,31 @@ student* student_init(char* name_input, int id){
 //insert course to student courses list
 int insert_course_to_list(student* s, char* c_name, int c_grade){
 
+	/* CHECK INPUT
+		- grade in range [0, 100]
+		-course name should be uniqe in the list
+	
+	*/
+	if(c_grade<0 || c_grade>100){
+		return 1; //not a valid grade;
+	}
+
+	struct it* = list_begin(s->courses_list);
+
+	while(it==!NULL){
+		//there are courses in list to print
+		course* c = (course*)list_get(it);
+		char* tmp_name = get_course_name(c);
+
+		if(strcmp(tmp_name, c_name)==0){
+			return 1;
+			//strcmp== 0 when strings equal
+			//then the course is not unique- fail
+		}
+
+		it = list_next(it);
+	}
+
 	//we create a course
 	course* new_c = course_init(c_name, c_grade);
 	if(!new_c){

@@ -17,6 +17,9 @@ void student_destroy(void* s);
 //struct
 student* student_init(char* name_input, int id);
 
+
+//checks ig grade is in range [0, 100] and if
+//c_name is unique in the courses_list
 int insert_course_to_list(student* s, char* c_name, int c_grade);
 
 

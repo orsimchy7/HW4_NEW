@@ -18,6 +18,8 @@ course* course_init(char* name, int grade_in);
 
 int get_course_grade(course* c);
 
+char* get_course_name(course* c);
+
 
 //======= NEED TO CONTINUE=======
 //return 0 when success

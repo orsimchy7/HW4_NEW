@@ -106,3 +106,11 @@ int get_course_grade(course* c) {
 
 
 
+char* get_course_name(course* c){
+
+	if(!c){
+		return
+	}
+
+	return c->course_name;
+}
