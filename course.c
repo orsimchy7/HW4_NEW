@@ -64,7 +64,7 @@ void course_destroy(void* c){
 
 
 //functions of course to get and set values:
-
+	//1. setters
 //init new course. return 1 if fail
 course* course_init(char* name, int grade_in){
 	course* new_c = (course*)malloc(sizeof(course));
@@ -87,5 +87,22 @@ course* course_init(char* name, int grade_in){
 	return new_c;
 
 }
+	//2. getters
+//return 0 when success
+int print_course_data(course* c){
+	if(!c){
+		return; //course not exist. return what?
+	}
+	fprintf(stdout, "%s %d ", course->course_name, course->grade);
+	return 0; //success
+}
+
+int get_course_grade(course* c) {
+	if(!c){
+		return; //course not exist. return what?
+	}
+	return course->grade;
+}
+
 
 
