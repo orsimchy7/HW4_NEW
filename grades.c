@@ -177,3 +177,26 @@ int grades_print_student(struct grades *grades, int id){
 	return 1;
 
 }
+
+int grades_print_all(struct grades *grades) {
+	if (!grades) return 1;
+	struct itSTUDENT* = list_begin(grades->students_list);
+	while(itSTUDENT == !NULL){
+		//keep printing students data
+		student* student = (student*)list_get(itSTUDENT);
+		print_student(student);
+		struct itCOURSE* = list_begin(student->courses_list);
+		while(itCOURSE == !NULL){
+			//keep printing courses
+			course* course = (course*)list_get(itCOURSE);
+			print_course_data(course);
+			itCOURSE = list_next(itCOURSE);
+			if (itCOURSE == !NULL){
+				printf(",");
+			}
+		}
+		printf("\n");
+		itSTUDENT = list_next(itSTUDENT);
+	}
+	return 0;
+}
