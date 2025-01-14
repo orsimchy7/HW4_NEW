@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stddef.h>
 #include "linked-list"
 #include "grades.h"
 //later - remove them and implement everything here
@@ -100,6 +101,47 @@ int grades_add_grade(struct grades *grades,
 	//without return from the if condition
 	//it means that the wanted student doesnt exists
 	return 1;
+}
+
+//returns -1 on error (and when fails? check)
+float grades_calc_avg(struct grades *grades, int id, char **out); {
+	if (!grades) return -1;
+	float avg = 0;
+	int found = 0;
+	struct itSTUDENT* = list_begin(grades->students_list);
+	while(itSTUDENT == !NULL){
+		//keep searching
+		student* student = (student*)list_get(itSTUDENT);
+		potentialID = student->id;
+		if (potentialID == id){
+			found = 1;
+			break;
+		}
+		itSTUDENT = list_next(itSTUDENT);
+	}
+	if (found) {
+		//setting string out by derefrence & allocating memory
+		*out = (char*)malloc((strlen(student->name)+1) * sizeof(char));
+		if (!(*out)) {
+			return -1; //error
+		}
+		strcopy(*out, student->name);
+		
+		//averging
+		size_t courseNum = list_size(student->courses_list); //check it
+		struct itCOURSE* = list_begin(student->courses_list);
+		while(itCOURSE == !NULL){
+			//keep averging courses
+			course* course = (course*)list_get(itCOURSE);
+			course_grd = course->grade;
+			avg = avg + course_grd/courseNum;
+			itCOURSE = list_next(itCOURSE);
+		}
+		return avg;
+	}
+	else { //no student with desired id
+		return -1;
+	}
 }
 
 
