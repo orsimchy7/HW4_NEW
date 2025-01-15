@@ -4,12 +4,13 @@
 #include <string.h>
 
 #include "linked-list"
-#include "course"
+#include "course.h"
+#include "student.h"
 
 
 /* each student struct has name, unique ID, pointer to courses list,
 pointer to iterator */
-typedef struct student {
+struct student {
 	int ID;
 	char* name;
 	struct list* courses_list; //course_list is a pointer to list
@@ -20,11 +21,11 @@ typedef struct student {
 
 int student_clone(void* student_in, void** student_out){
 
-	student* original = (student*)student_in;
+	Student original = (student*)student_in;
+	//now original is a pointer to a student struct (student*)
 
 	//allocate memory to clone
-
-	student* clone = (student*)malloc(sizeof(student));
+	Student clone = (Student)malloc(sizeof(student));
 
 	if(!clone){
 		return 1;
@@ -44,14 +45,15 @@ int student_clone(void* student_in, void** student_out){
 	//the clone will have the same course_list pointer 
 	clone->courses_list = original->courses_list
 
+	*student_out = clone;
+	//now student_out it a pointer to a pointer to student
 
 	return 0;
-
 }
 
 
 void student_destroy(void* s){
-	student* student_in = (student*)s;
+	Student student_in = (Student)s;
 	//now student_in is a pointer to the input student struct
 
 	//free allocation for name
@@ -66,9 +68,9 @@ void student_destroy(void* s){
 
 //setters & getters
 
-student* student_init(char* name_input, int id){
+Student student_init(char* name_input, int id){
 
-	student* new_student = (student*)malloc(sizeof(student));
+	Student new_student = (Student)malloc(sizeof(student));
 
 	if(!new_student){
 		return;
@@ -99,7 +101,7 @@ student* student_init(char* name_input, int id){
 
 
 //insert course to student courses list
-int insert_course_to_list(student* s, char* c_name, int c_grade){
+int insert_course_to_list(Student s, char* c_name, int c_grade){
 
 	/* CHECK INPUT
 		- grade in range [0, 100]
@@ -110,7 +112,7 @@ int insert_course_to_list(student* s, char* c_name, int c_grade){
 		return 1; //not a valid grade;
 	}
 
-	struct it* = list_begin(s->courses_list);
+	struct iterator* it = list_begin(s->courses_list);
 
 	while(it==!NULL){
 		//there are courses in list to print
@@ -145,12 +147,12 @@ int insert_course_to_list(student* s, char* c_name, int c_grade){
 
 // * STUDENT-NAME STUDENT-ID: COURSE-1-NAME COURSE-1-GRADE, [...]
 
-void print_student(student* s){
+void print_student(Student s){
 
-	student* student_input = (student*)s;
+	Student student_input = (Student)s;
 	printf("%s %d:", student_in->name, student_in->ID);
 
-	struct it* = list_begin(student_in->courses_list);
+	struct iterator it = list_begin(student_in->courses_list);
 
 	while(it==!NULL){
 		//there are courses in list to print

@@ -5,9 +5,10 @@
 #include <stddef.h>
 
 
-typedef struct student; //defined in course.c to hide from user
+typedef struct student* Student; //defined in course.c to hide from user
 
 //functions needed by linked-list
+//here the input is void* because of the linked-list requierment
 int student_clone(void* student_in, void** student_out);
 void student_destroy(void* s);
 
@@ -15,15 +16,15 @@ void student_destroy(void* s);
 
 //create a new student struct. return pointer to the student
 //struct
-student* student_init(char* name_input, int id);
+Student student_init(char* name_input, int id);
 
 
 //checks ig grade is in range [0, 100] and if
 //c_name is unique in the courses_list
-int insert_course_to_list(student* s, char* c_name, int c_grade);
+int insert_course_to_list(Student s, char* c_name, int c_grade);
 
 
 //returns 1 when failed
-void print_student(student* s);
+void print_student(Student s);
 
 #endif

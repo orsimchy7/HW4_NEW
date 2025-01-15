@@ -4,11 +4,11 @@
 #include <string.h>
 
 /* courses user-function declarations */
-int course_clone(void *course_in, void **course_out);
-void destroy_course(void* course);
+//int course_clone(void *course_in, void **course_out);
+//void destroy_course(void* course);
 
 
-typedef struct course {
+struct course {
 	int grade;
 	char* course_name;
 }
@@ -19,10 +19,10 @@ typedef struct course {
 int course_clone(void* course_in, void** course_out){
 
 	//cast void* to course*
-	course* original = (course*)course_in;
+	Course original = (Course)course_in;
 
 	//allocate memory to the clone, clone is a pointer to a new course
-	course* clone = (course*)malloc(sizeof(course));
+	Course clone = (Course)malloc(sizeof(course));
 
 	if(!clone){
 		return 1;
@@ -54,7 +54,7 @@ void course_destroy(void* c){
 	}
 
 	//casting - course_in i a corse* (pointer to the input course)
-	course* course_in = (course*)c;
+	Course course_in = (Course)c;
 
 	free(course_in->course_name);
 
@@ -66,8 +66,8 @@ void course_destroy(void* c){
 //functions of course to get and set values:
 	//1. setters
 //init new course. return 1 if fail
-course* course_init(char* name, int grade_in){
-	course* new_c = (course*)malloc(sizeof(course));
+Course course_init(char* name, int grade_in){
+	Course new_c = (Course)malloc(sizeof(course));
 
 	if(!new_c){
 		return NULL;
@@ -89,7 +89,7 @@ course* course_init(char* name, int grade_in){
 }
 	//2. getters
 //return 0 when success
-int print_course_data(course* c){
+int print_course_data(Course c){
 	if(!c){
 		return; //course not exist. return what?
 	}
@@ -97,7 +97,7 @@ int print_course_data(course* c){
 	return 0; //success
 }
 
-int get_course_grade(course* c) {
+int get_course_grade(Course c) {
 	if(!c){
 		return; //course not exist. return what?
 	}
@@ -106,7 +106,7 @@ int get_course_grade(course* c) {
 
 
 
-char* get_course_name(course* c){
+char* get_course_name(Course c){
 
 	if(!c){
 		return;
