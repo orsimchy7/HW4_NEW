@@ -382,6 +382,7 @@ int grades_add_grade(struct grades *grades,
 //returns -1 on error (and when fails? check)
 float grades_calc_avg(struct grades *grades, int id, char **out){
 	if (!grades) {
+		*out = NULL;
 		return -1;
 	}
 	float avg = 0;
